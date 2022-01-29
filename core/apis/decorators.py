@@ -18,6 +18,14 @@ def accept_payload(func):
         return func(incoming_payload, *args, **kwargs)
     return wrapper
 
+def accept_urlparams(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        url_params = request.args
+        return func(url_params, *args, **kwargs)
+    return wrapper
+
+
 
 def auth_principal(func):
     @wraps(func)

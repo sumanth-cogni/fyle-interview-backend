@@ -13,6 +13,10 @@ class GradeEnum(str, enum.Enum):
     C = 'C'
     D = 'D'
 
+    @classmethod
+    def has_value(cls, value):
+        return value in cls._value2member_map_ 
+
 
 class AssignmentStateEnum(str, enum.Enum):
     DRAFT = 'DRAFT'
@@ -77,3 +81,26 @@ class Assignment(db.Model):
     @classmethod
     def get_assignments_by_student(cls, student_id):
         return cls.filter(cls.student_id == student_id).all()
+
+    @classmethod
+    def get_assignments_by_teacher(cls, teacher_id,state):
+        assertions.assert_valid((state == AssignmentStateEnum.DRAFT or 
+                            state == AssignmentStateEnum.SUBMITTED or 
+                                state == AssignmentStateEnum.GRADED ),
+                                'NOT A VALID STATE')
+        return cls.filter(cls.teacher_id == teacher_id,cls.state == state).all()
+    
+    @classmethod
+    def update_grade(cls, _id, principal: Principal,grade):
+        assignment = Assignment.get_by_id(_id)
+        assertions.assert_found(assignment, 'No assignment with this id was found')
+        assertions.assert_valid(assignment.teacher_id == principal.teacher_id, 'This assignment belongs to some other teacher')
+        print(assignment.state)
+        assertions.assert_valid(assignment.state == AssignmentStateEnum.SUBMITTED,'This assignment cannot be graded as its not submitted yet')
+        assertions.assert_valid(GradeEnum.has_value(grade), 'Invalid grade')
+        
+        assignment.state = AssignmentStateEnum.GRADED
+        assignment.grade = grade
+        db.session.flush()
+
+        return assignment
