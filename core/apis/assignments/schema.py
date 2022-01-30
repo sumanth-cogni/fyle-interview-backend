@@ -37,11 +37,8 @@ class AssignmentSubmitSchema(Schema):
         # pylint: disable=unused-argument,no-self-use
         return GeneralObject(**data_dict)
 
+#custom field to raise validation error
 class GradeValidation(fields.Field):
-    """Field that serializes to a string of numbers and deserializes
-    to a list of numbers.
-    """
-
     def _serialize(self, value, attr, obj, **kwargs):
         if value is None:
             return ""
@@ -51,6 +48,7 @@ class GradeValidation(fields.Field):
             if not (GradeEnum.has_value(value)):
                 raise ValidationError("The grade does not exists")
 
+#Schema for params of grade
 class AssignmentGradeSchema(Schema):
     class Meta:
         unknown = EXCLUDE

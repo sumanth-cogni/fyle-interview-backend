@@ -1,4 +1,9 @@
 # Fyle Backend Challenge
+## Some of the changes made
+1. Added a state as on of the parameters for **/teacher/assignments** API, so that based on the user prefernces assignments can be listed. 
+2. Added a wrapper method **accept_urlparams** to read the wrapper method
+3. Changed the test cases to accommdate the change in the api. 
+4. Rest of the API definition is the same as Described in ./Application.md#Missing-APIs)
 
 ## Who is this for?
 

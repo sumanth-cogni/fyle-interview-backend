@@ -18,6 +18,7 @@ def accept_payload(func):
         return func(incoming_payload, *args, **kwargs)
     return wrapper
 
+#decorator to read url params 
 def accept_urlparams(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
