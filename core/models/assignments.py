@@ -83,7 +83,7 @@ class Assignment(db.Model):
         return cls.filter(cls.student_id == student_id).all()
 
     @classmethod
-    def get_assignments_by_teacher(cls, teacher_id,state):
+    def get_assignments_by_teacher(cls, teacher_id,state="SUBMITTED"):
         assertions.assert_valid((state == AssignmentStateEnum.DRAFT or 
                             state == AssignmentStateEnum.SUBMITTED or 
                                 state == AssignmentStateEnum.GRADED ),

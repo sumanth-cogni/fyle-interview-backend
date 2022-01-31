@@ -1,6 +1,6 @@
 def test_get_assignments_teacher_1(client, h_teacher_1):
     response = client.get(
-        '/teacher/assignments?state=SUBMITTED',
+        '/teacher/assignments',
         headers=h_teacher_1
     )
 
@@ -14,7 +14,7 @@ def test_get_assignments_teacher_1(client, h_teacher_1):
 
 def test_get_assignments_teacher_2(client, h_teacher_2):
     response = client.get(
-        '/teacher/assignments?state=SUBMITTED',
+        '/teacher/assignments',
         headers=h_teacher_2
     )
 

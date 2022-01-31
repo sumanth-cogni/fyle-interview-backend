@@ -14,7 +14,7 @@ teacher_assignments_resources = Blueprint('teacher_assignments_resources', __nam
 @decorators.auth_principal
 def list_assignments(p,url_params):
     """Returns list of assignments"""
-    teacher_assignments = Assignment.get_assignments_by_teacher(p.teacher_id,url_params.get('state'))
+    teacher_assignments = Assignment.get_assignments_by_teacher(p.teacher_id)
     teacher_assignments_dump = AssignmentSchema().dump(teacher_assignments, many=True)
     return APIResponse.respond(data=teacher_assignments_dump)
     
